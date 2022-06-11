@@ -5,6 +5,7 @@ import nl.inholland.ships.shipsapi.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,11 +19,13 @@ public class ManufacturerController {
     private ManufacturerService manufacturerService;
 
     @GetMapping
+    @PreAuthorize("hasRole({'USER'})")
     public List<Manufacturer> getAllManufacturers() {
         return manufacturerService.getAllManufacturers();
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Manufacturer> addManufacturer(@RequestBody Manufacturer manufacturer) {
 
         Manufacturer manufacturer1 = manufacturerService.getByName(manufacturer.getName());

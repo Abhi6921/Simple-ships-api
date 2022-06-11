@@ -1,9 +1,12 @@
 package nl.inholland.ships.shipsapi.config;
 
 import nl.inholland.ships.shipsapi.model.Manufacturer;
+import nl.inholland.ships.shipsapi.model.MyUser;
+import nl.inholland.ships.shipsapi.model.Role;
 import nl.inholland.ships.shipsapi.model.Ship;
 import nl.inholland.ships.shipsapi.repository.ManufacturerRepository;
 import nl.inholland.ships.shipsapi.repository.ShipRepository;
+import nl.inholland.ships.shipsapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -21,6 +24,9 @@ public class MyApplicationRunner implements ApplicationRunner {
 
     @Autowired
     ShipRepository shipRepository;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -45,5 +51,22 @@ public class MyApplicationRunner implements ApplicationRunner {
 
         shipRepository.saveAll(ships);
 
+        MyUser testuser = new MyUser();
+        testuser.setFullName("Abhi king");
+        testuser.setEmail("abi@gmail.com");
+        testuser.setUsername("test");
+        testuser.setPassword("secret");
+        testuser.setRoles(new ArrayList<>(Arrays.asList(Role.ROLE_USER)));
+
+        userService.addUser(testuser);
+
+        MyUser testuser2 = new MyUser();
+        testuser2.setFullName("tommy king");
+        testuser2.setEmail("tommy@gmail.com");
+        testuser2.setUsername("tommy13");
+        testuser2.setPassword("abc123");
+        testuser2.setRoles(new ArrayList<>(Arrays.asList(Role.ROLE_ADMIN)));
+
+        userService.addUser(testuser2);
     }
 }

@@ -14,6 +14,11 @@ import org.springframework.http.ResponseEntity;
 
 public class ManufacturerStepDefs extends BaseStepDefinations implements En {
 
+    // Token valid for one year
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTQ5NjI1MTIsImV4cCI6MTY1NDk2NjExMn0.F9yZj070oI0jI-meBnV_jNVDkKrY4IfkUfaaBi_2lqc";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU0OTYzNDYzLCJleHAiOjE2NTQ5NjcwNjN9.CbQUTlHqOvSLCvJ-BGfPx2wkAkE_AEQwZr_EdsA7cd0";
+    private static final String EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6W10sImlhdCI6MTY1MzMxMTkwNSwiZXhwIjoxNjUzMzExOTA1fQ.mKFrXM15WCXVNbSFNpqYix_xsMjsH_M31hiFf-o7JXs";
+
     private final HttpHeaders httpHeaders = new HttpHeaders();
     private final TestRestTemplate restTemplate = new TestRestTemplate();
 
@@ -25,14 +30,23 @@ public class ManufacturerStepDefs extends BaseStepDefinations implements En {
 
     private Manufacturer manufacturer;
 
-    private ManufacturerService manufacturerService;
+    private String token;
 
 
     public ManufacturerStepDefs() {
 
+        Given("^I have a valid token for role \"([^\"]*)\"$", (String role) -> {
+                switch(role) {
+                    case "user" -> token = VALID_TOKEN_USER;
+                    case "admin" -> token = VALID_TOKEN_ADMIN;
+                }
+        });
         // Senario 1
-        When("the user call get endpoint", () -> {
-            response = restTemplate.exchange(getBaseUrl() + "/manufacturers", HttpMethod.GET, new HttpEntity<>(httpHeaders), String.class);
+        When("I call get manufacturers endpoint", () -> {
+            httpHeaders.clear();
+            httpHeaders.add("Authorization",  "Bearer " + token);
+            request = new HttpEntity<>(null, httpHeaders);
+            response = restTemplate.exchange(getBaseUrl() + "/manufacturers", HttpMethod.GET, new HttpEntity<>(null, httpHeaders), String.class);
             status = response.getStatusCodeValue();
         });
 
@@ -45,8 +59,13 @@ public class ManufacturerStepDefs extends BaseStepDefinations implements En {
             manufacturer = new Manufacturer(id, name, affiliation, ceo);
         });
 
-        When("^I make a post request to manufacturer endpoint$", () -> {
-            response = restTemplate.exchange(getBaseUrl() + "/manufacturers", HttpMethod.POST, new HttpEntity<>(manufacturer, httpHeaders), String.class);
+        When("^I make a post request to manufacturers endpoint$", () -> {
+            httpHeaders.clear();
+            httpHeaders.add("Authorization", "Bearer " + token);
+            httpHeaders.add("Content-Type", "application/json");
+            request = new HttpEntity<>(mapper.writeValueAsString(manufacturer), httpHeaders);
+            //response = restTemplate.exchange(getBaseUrl() + "/manufacturers", HttpMethod.POST, new HttpEntity<>(manufacturer, httpHeaders), String.class);
+            response = restTemplate.postForEntity(getBaseUrl() + "/manufacturers", request, String.class);
             status = response.getStatusCodeValue();
         });
 
