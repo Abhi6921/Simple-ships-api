@@ -1,6 +1,7 @@
 package nl.inholland.ships.shipsapi.controller;
 
 import nl.inholland.ships.shipsapi.model.dto.LoginDTO;
+import nl.inholland.ships.shipsapi.model.dto.LoginResponseDTO;
 import nl.inholland.ships.shipsapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,10 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping
-    public String login(@RequestBody LoginDTO loginDTO) {
-        return userService.login(loginDTO.getUsername(), loginDTO.getPassword());
+    public LoginResponseDTO login(@RequestBody LoginDTO loginDTO) {
+        LoginResponseDTO responseDTO = new LoginResponseDTO();
+        String token = userService.login(loginDTO.getUsername(), loginDTO.getPassword());
+        responseDTO.setToken(token);
+        return responseDTO;
     }
 }

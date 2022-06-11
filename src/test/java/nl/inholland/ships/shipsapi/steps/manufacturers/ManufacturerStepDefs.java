@@ -15,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 public class ManufacturerStepDefs extends BaseStepDefinations implements En {
 
     // Token valid for one year
-    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTQ5NjI1MTIsImV4cCI6MTY1NDk2NjExMn0.F9yZj070oI0jI-meBnV_jNVDkKrY4IfkUfaaBi_2lqc";
-    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU0OTYzNDYzLCJleHAiOjE2NTQ5NjcwNjN9.CbQUTlHqOvSLCvJ-BGfPx2wkAkE_AEQwZr_EdsA7cd0";
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTQ5NzkwMDMsImV4cCI6MTY1NDk4MjYwM30._MYlQnprc31gNX4j3h7XD8DW6eUDM01a4S1LHXPso7E";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU0OTc5MDU4LCJleHAiOjE2NTQ5ODI2NTh9.Ihu4B_Mf32RrretUkyTMUyjb6Ed6l9n7CU_Qa7ceOyk";
     private static final String EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6W10sImlhdCI6MTY1MzMxMTkwNSwiZXhwIjoxNjUzMzExOTA1fQ.mKFrXM15WCXVNbSFNpqYix_xsMjsH_M31hiFf-o7JXs";
 
     private final HttpHeaders httpHeaders = new HttpHeaders();
