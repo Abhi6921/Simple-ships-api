@@ -1,10 +1,9 @@
-package nl.inholland.ships.shipsapi.steps.manufacturers;
+package nl.inholland.ships.shipsapi.IT.steps.manufacturers;
 
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java8.En;
 import nl.inholland.ships.shipsapi.model.Manufacturer;
-import nl.inholland.ships.shipsapi.service.ManufacturerService;
-import nl.inholland.ships.shipsapi.steps.BaseStepDefinations;
+import nl.inholland.ships.shipsapi.IT.steps.BaseStepDefinations;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -14,11 +13,12 @@ import org.springframework.http.ResponseEntity;
 
 public class ManufacturerStepDefs extends BaseStepDefinations implements En {
 
-    // Token valid for one year
-    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTQ5NzkwMDMsImV4cCI6MTY1NDk4MjYwM30._MYlQnprc31gNX4j3h7XD8DW6eUDM01a4S1LHXPso7E";
-    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU0OTc5MDU4LCJleHAiOjE2NTQ5ODI2NTh9.Ihu4B_Mf32RrretUkyTMUyjb6Ed6l9n7CU_Qa7ceOyk";
-    private static final String EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6W10sImlhdCI6MTY1MzMxMTkwNSwiZXhwIjoxNjUzMzExOTA1fQ.mKFrXM15WCXVNbSFNpqYix_xsMjsH_M31hiFf-o7JXs";
 
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTUxMzAyNTQsImV4cCI6MTY1NTEzMzg1NH0.61BxMZAktOqMsfpnEAiqlRseWSiCigKgJdYx-Pm-Xkg";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU1MTMwMzE0LCJleHAiOjE2NTUxMzM5MTR9.N7AXrNiyjPIpAE0v1hoQGzrCkebXSZiTsY-3j9NhFpc";
+    private static final String EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6W10sImlhdCI6MTY1MzMxMTkwNSwiZXhwIjoxNjUzMzExOTA1fQ.mKFrXM15WCXVNbSFNpqYix_xsMjsH_M31hiFf-o7JXs";
+    private static final String INVALID_TOKEN = "invalidtoken";
+    
     private final HttpHeaders httpHeaders = new HttpHeaders();
     private final TestRestTemplate restTemplate = new TestRestTemplate();
 
@@ -50,7 +50,7 @@ public class ManufacturerStepDefs extends BaseStepDefinations implements En {
             status = response.getStatusCodeValue();
         });
 
-        Then("the user receives status code of {int}", (Integer code) -> {
+        Then("I receive status code of {int}", (Integer code) -> {
             Assertions.assertEquals(code, status);
         });
 
@@ -72,6 +72,12 @@ public class ManufacturerStepDefs extends BaseStepDefinations implements En {
         Then("^I should receive a status code of (\\d+)$", (Integer code) -> {
             Assertions.assertEquals(code, status);
         });
+
+
+        Given("^I have an invalid token$", () -> {
+            token = INVALID_TOKEN;
+        });
+
 
     }
 }

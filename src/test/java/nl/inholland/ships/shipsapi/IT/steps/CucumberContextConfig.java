@@ -1,4 +1,4 @@
-package nl.inholland.ships.shipsapi.steps;
+package nl.inholland.ships.shipsapi.IT.steps;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
