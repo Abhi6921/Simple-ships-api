@@ -34,12 +34,12 @@ public class ShipController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Ship> addShip(@RequestBody ShipDTO shipDTO) {
-        Ship ship = convertShipDTOToShip(shipDTO);
+        Ship ship = convertShipDTOToShipToInsertShip(shipDTO);
         Ship newship = shipService.addShip(ship);
         return new ResponseEntity<>(newship, HttpStatus.CREATED);
     }
 
-    public Ship convertShipDTOToShip(ShipDTO shipDTO) {
+    public Ship convertShipDTOToShipToInsertShip(ShipDTO shipDTO) {
         Ship ship = new Ship();
         ship.setName(shipDTO.getName());
         Manufacturer manufacturer = manufacturerService.getByName(shipDTO.getManufacturerName());
@@ -52,5 +52,4 @@ public class ShipController {
         ship.setCost(shipDTO.getCost());
         return ship;
     }
-
 }

@@ -43,4 +43,11 @@ public class ManufacturerController {
         List<Manufacturer> manufacturers = manufacturerService.getAllByAffiliation(affiliation);
         return new ResponseEntity<>(manufacturers, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable(value = "id") Long id,  @RequestBody Manufacturer manufacturerDetails) {
+
+        Manufacturer updatedManufacturer = manufacturerService.updateManufacturer(id, manufacturerDetails);
+        return ResponseEntity.ok(updatedManufacturer);
+    }
 }
