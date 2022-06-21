@@ -8,11 +8,11 @@ import nl.inholland.ships.shipsapi.service.ShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ships")
@@ -24,15 +24,22 @@ public class ShipController {
     @Autowired
     private ManufacturerService manufacturerService;
 
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<Ship>> getAllShips() {
+        List<Ship> ships = shipService.getAllShips();
+        return new ResponseEntity<>(ships, HttpStatus.OK);
+    }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Ship> addShip(@RequestBody ShipDTO shipDTO) {
-        Ship ship = convertShipDTOToShip(shipDTO);
+        Ship ship = convertShipDTOToShipToInsertShip(shipDTO);
         Ship newship = shipService.addShip(ship);
         return new ResponseEntity<>(newship, HttpStatus.CREATED);
     }
 
-    public Ship convertShipDTOToShip(ShipDTO shipDTO) {
+    public Ship convertShipDTOToShipToInsertShip(ShipDTO shipDTO) {
         Ship ship = new Ship();
         ship.setName(shipDTO.getName());
         Manufacturer manufacturer = manufacturerService.getByName(shipDTO.getManufacturerName());
@@ -45,5 +52,4 @@ public class ShipController {
         ship.setCost(shipDTO.getCost());
         return ship;
     }
-
 }

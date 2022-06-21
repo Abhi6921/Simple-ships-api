@@ -34,4 +34,11 @@ public class Manufacturer {
         this.affiliation = affiliation;
         this.ceo = ceo;
     }
+
+    public void setAffiliation(String affiliation) {
+        if (affiliation == null) {
+            throw new IllegalArgumentException("affiliation cannot be null");
+        }
+        this.affiliation = affiliation;
+    }
 }
