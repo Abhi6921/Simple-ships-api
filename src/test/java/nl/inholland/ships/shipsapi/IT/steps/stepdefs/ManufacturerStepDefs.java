@@ -1,4 +1,4 @@
-package nl.inholland.ships.shipsapi.IT.steps.manufacturers;
+package nl.inholland.ships.shipsapi.IT.steps.stepdefs;
 
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java8.En;
@@ -13,9 +13,8 @@ import org.springframework.http.ResponseEntity;
 
 public class ManufacturerStepDefs extends BaseStepDefinations implements En {
 
-
-    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTUxMzAyNTQsImV4cCI6MTY1NTEzMzg1NH0.61BxMZAktOqMsfpnEAiqlRseWSiCigKgJdYx-Pm-Xkg";
-    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU1MTMwMzE0LCJleHAiOjE2NTUxMzM5MTR9.N7AXrNiyjPIpAE0v1hoQGzrCkebXSZiTsY-3j9NhFpc";
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTU0ODkwNjEsImV4cCI6MTY1NTQ5MjY2MX0.05h_vPjJen1rHWY0admelOGFjDY53TEXGIKs8thhca8";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU1NDg4Nzc4LCJleHAiOjE2NTU0OTIzNzh9.qN6IytkIvMnVg4qFOysxkzl7zV3mqDhacMQldt7-JG4";
     private static final String EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6W10sImlhdCI6MTY1MzMxMTkwNSwiZXhwIjoxNjUzMzExOTA1fQ.mKFrXM15WCXVNbSFNpqYix_xsMjsH_M31hiFf-o7JXs";
     private static final String INVALID_TOKEN = "invalidtoken";
     
@@ -77,6 +76,7 @@ public class ManufacturerStepDefs extends BaseStepDefinations implements En {
         Given("^I have an invalid token$", () -> {
             token = INVALID_TOKEN;
         });
+
 
 
     }

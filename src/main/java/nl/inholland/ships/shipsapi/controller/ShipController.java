@@ -8,6 +8,7 @@ import nl.inholland.ships.shipsapi.service.ShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,12 +25,14 @@ public class ShipController {
     private ManufacturerService manufacturerService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Ship>> getAllShips() {
         List<Ship> ships = shipService.getAllShips();
         return new ResponseEntity<>(ships, HttpStatus.OK);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Ship> addShip(@RequestBody ShipDTO shipDTO) {
         Ship ship = convertShipDTOToShip(shipDTO);
         Ship newship = shipService.addShip(ship);

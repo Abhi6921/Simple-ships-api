@@ -39,9 +39,7 @@ public class MyApplicationRunner implements ApplicationRunner {
                 manufacturer1, manufacturer2, manufacturer3
         ));
 
-
         manufacturerRepository.saveAll(manufacturers);
-
         List<Ship> ships = List.of(
                 new Ship(manufacturer1, "CR90", "Corvette", 150.00, 2700000),
                 new Ship(manufacturer2,"Executor", "Dreadnought",19000.00,325000000),
