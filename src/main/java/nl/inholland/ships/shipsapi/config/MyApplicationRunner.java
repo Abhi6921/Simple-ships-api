@@ -52,7 +52,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         MyUser testuser = new MyUser();
         testuser.setFullName("Abhi king");
         testuser.setEmail("abi@gmail.com");
-        testuser.setUsername("test");
+        testuser.setUsername("abhi");
         testuser.setPassword("secret");
         testuser.setRoles(new ArrayList<>(Arrays.asList(Role.ROLE_USER)));
 
@@ -61,8 +61,8 @@ public class MyApplicationRunner implements ApplicationRunner {
         MyUser testuser2 = new MyUser();
         testuser2.setFullName("tommy king");
         testuser2.setEmail("tommy@gmail.com");
-        testuser2.setUsername("tommy13");
-        testuser2.setPassword("abc123");
+        testuser2.setUsername("tommy");
+        testuser2.setPassword("secret");
         testuser2.setRoles(new ArrayList<>(Arrays.asList(Role.ROLE_ADMIN)));
 
         userService.addUser(testuser2);

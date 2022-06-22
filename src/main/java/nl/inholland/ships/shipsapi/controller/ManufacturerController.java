@@ -46,7 +46,6 @@ public class ManufacturerController {
 
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<Manufacturer> updateManufacturer(@PathVariable(value = "id") Long id,  @RequestBody Manufacturer manufacturerDetails) {
-
         Manufacturer updatedManufacturer = manufacturerService.updateManufacturer(id, manufacturerDetails);
         return ResponseEntity.ok(updatedManufacturer);
     }

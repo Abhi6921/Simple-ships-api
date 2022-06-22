@@ -33,8 +33,8 @@ class ManufacturerControllerTest {
     private Manufacturer manufacturer;
     private Manufacturer manufacturer1;
 
-    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTU4NTQzMDIsImV4cCI6MTY1NTg1NzkwMn0.cSl0vi2NHzt2jANQzmiiHgVmvzO7Qt8G_KoqOsZNpZU";
-    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU1ODU0OTk0LCJleHAiOjE2NTU4NTg1OTR9.pGa1P7Cedzzqvd28j3kndGj9BPF0_oIk32z3-3jiQHI";
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmhpIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTU5MzM3OTQsImV4cCI6MTY1NTkzNzM5NH0.S_6WS7o1YrD3DbiQPT4wILvsp1yIt-89PtPAlDINlOo";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teSIsImF1dGgiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTY1NTkzMzYxMywiZXhwIjoxNjU1OTM3MjEzfQ.jZczzF4iVwgB42Pgv1CoP7HVZWEhtT550AGd6hdyyPE";
     @BeforeEach
     public void setup() {
         manufacturer = new Manufacturer(10005L, "xyz corporation", "random alliance", "Abhishek Narvekar");

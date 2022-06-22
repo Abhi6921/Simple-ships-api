@@ -1,5 +1,6 @@
 package nl.inholland.ships.shipsapi.controller;
 
+import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import nl.inholland.ships.shipsapi.model.Manufacturer;
 import nl.inholland.ships.shipsapi.model.Ship;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -18,6 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 @SpringBootTest
@@ -35,8 +38,11 @@ class ShipControllerTest {
     private Ship ship1;
     private Ship ship2;
 
-    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTU4NTQzMDIsImV4cCI6MTY1NTg1NzkwMn0.cSl0vi2NHzt2jANQzmiiHgVmvzO7Qt8G_KoqOsZNpZU";
-    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teTEzIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjU1ODU0OTk0LCJleHAiOjE2NTU4NTg1OTR9.pGa1P7Cedzzqvd28j3kndGj9BPF0_oIk32z3-3jiQHI";
+    private static final String VALID_TOKEN_USER = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmhpIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJpYXQiOjE2NTU5MzM3OTQsImV4cCI6MTY1NTkzNzM5NH0.S_6WS7o1YrD3DbiQPT4wILvsp1yIt-89PtPAlDINlOo";
+    private static final String VALID_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21teSIsImF1dGgiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTY1NTkzMzYxMywiZXhwIjoxNjU1OTM3MjEzfQ.jZczzF4iVwgB42Pgv1CoP7HVZWEhtT550AGd6hdyyPE";
+
+    @Autowired
+    private ShipController shipController;
 
     @BeforeEach
     public void setup() {
@@ -60,18 +66,25 @@ class ShipControllerTest {
 
     // TODO: finish this test by today
     @Test
-    public void postingAShipShouldReturn201Created() {
+    public void postingAShipShouldReturn201Created() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
         ShipDTO shipDTO = new ShipDTO();
         shipDTO.setName("abc name");
-        shipDTO.setManufacturerName("xyz corporation");
+        shipDTO.setManufacturerName("Kuat Drive Yards");
         shipDTO.setType("some type");
         shipDTO.setLength(300.00);
         shipDTO.setCost(3000000);
 
-        //this.mvc.perform(post("/ships"))
+        //Ship ship = shipController.convertShipDTOToShipToInsertShip(shipDTO);
+
+        this.mvc.perform(post("/ships").header("Authorization", "Bearer " + VALID_TOKEN_ADMIN)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(shipDTO)))
+                .andExpect(status().isCreated());
     }
+
+
 
 
 }
